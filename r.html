@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //localStorage.clear();
+        function output() {  
+            const output = document.getElementById('out');
+            if(localStorage.getItem('count') == null){
+                output.insertAdjacentHTML('beforeend', '<input type=button value=初使用の方はこちらをクリック onclick=count()>');
+            }
+            for(let i=1;i<=50;i++) {
+
+                //var i = 1;
+                var o_url = localStorage.getItem('url'+i);
+                var o_name = localStorage.getItem('name'+i);
+                //var insert = localStorage.getItem('url1');
+                if(o_url == null) {
+
+                }else{
+                    output.insertAdjacentHTML('beforeend', '<a href ='+o_url+'><h2>'+o_name+'</h2></a>  <input type=button value=削除する onclick=del('+i+')>');
+                }
+                //output.innerHTML = "<a href="+o_url+">"+o_name+"</a>";
+            }
+        }
+
+        const link = () => {
+            const url = document.forms.form1.urlbox.value;
+            const name = document.forms.form1.name.value;
+            var count = Number(localStorage.getItem('count'));
+            localStorage.setItem('url'+count, url);
+            localStorage.setItem('name'+count, name);
+            localStorage.setItem('count', count+1);
+            document.location.reload();
+        }
+
+        const del = (i) => {
+            var confirm = window.confirm('このページのリンクを削除します');
+            if(confirm == true) {
+                localStorage.removeItem('url'+i);
+                localStorage.removeItem('name'+i);
+                document.location.reload();
+            }
+        }
+
+        const count = () => {
+            localStorage.setItem('count', 1);
+            document.location.reload();
+            //localStorage.clear()
+            /*var selecter = getElementById('selecter');
+            var option = document.createElement('option');
+            option.text = 'No.'+i;
+            option.value = i;
+            selecter.appendChild(option);*/
+        }
+        console.log(localStorage.getItem('count'));
+    </script>
+</head>
+<body onload="output()">
+    <form name="form1" id="form1" action="" id="url">
+        サイトのURL  <input type="text" id="urlbox">
+        このページ上の名前  <input type="text" id="name">
+        <select name="" id="selecter">
+            <option value="1">No.1</option>
+            <option value="2">No.2</option>
+            <option value="3">No.3</option>
+        </select>
+        <input type="button" value="追加" onclick="link()">
+    </form>
+    <div id="out">
+        <h1>リンク</h1>
+    </div>
+</body>
+</html>
