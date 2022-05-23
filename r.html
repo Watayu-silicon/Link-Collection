@@ -17,11 +17,13 @@
                 //var i = 1;
                 var o_url = localStorage.getItem('url'+i);
                 var o_name = localStorage.getItem('name'+i);
+                var o_subject = localStorage.getItem('subject'+i);
+                var o_num = localStorage.getItem('num'+i);
                 //var insert = localStorage.getItem('url1');
                 if(o_url == null) {
 
                 }else{
-                    output.insertAdjacentHTML('beforeend', '<a href ='+o_url+'><h2>'+o_name+'</h2></a>  <input type=button value=削除する onclick=del('+i+')>');
+                    output.insertAdjacentHTML('beforeend', '<h2>'+o_subject+'No.'+o_num+'  <a href ='+o_url+'><h2>'+o_name+'</a>  <input type=button value=削除する onclick=del('+i+')></h2>');
                 }
                 //output.innerHTML = "<a href="+o_url+">"+o_name+"</a>";
             }
@@ -30,9 +32,13 @@
         const link = () => {
             const url = document.forms.form1.urlbox.value;
             const name = document.forms.form1.name.value;
+            const subject = document.forms.form1.subject.value;
+            const num = document.forms.form1.num.value;
             var count = Number(localStorage.getItem('count'));
             localStorage.setItem('url'+count, url);
             localStorage.setItem('name'+count, name);
+            localStorage.setItem('subject'+count, subject);
+            localStorage.setItem('num'+count, num);
             localStorage.setItem('count', count+1);
             document.location.reload();
         }
@@ -63,6 +69,14 @@
     <form name="form1" id="form1" action="" id="url">
         サイトのURL  <input type="text" id="urlbox">
         このページ上の名前  <input type="text" id="name">
+         <select name="subject" id="subject">
+            <option value="歴史">歴史</option>
+            <option value="地理">地理</option>
+            <option value="公民">公民</option>
+        </select>
+        <select name="" id="num">
+
+        </select>
         <input type="button" value="追加" onclick="link()">
     </form>
     <div id="out">
